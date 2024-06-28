@@ -5,7 +5,11 @@
   Time: 4:43
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%
+    String message = request.getParameter("error");
+%>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -16,16 +20,17 @@
     <title>Error</title>
 </head>
 <body>
-<section class="container">
-    <div class="grid">
+<section class="container text-center">
+    <div class="flex">
         <div class="">
             <h1>Error</h1>
-            <p>Datos incorrectos</p>
+            <p><%=message%></p>
         </div>
     </div>
+    <div>
+        <a role="button" class="button" href="index.jsp">Regresar</a>
+    </div>
 </section>
-<div>
-    <a role="button" class="button" href="index.jsp">Regresar</a>
-</div>
+
 </body>
 </html>

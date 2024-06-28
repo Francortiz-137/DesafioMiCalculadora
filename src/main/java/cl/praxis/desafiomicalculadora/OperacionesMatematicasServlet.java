@@ -18,35 +18,61 @@ public class OperacionesMatematicasServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
-        int num1 = Integer.parseInt(request.getParameter("numero1"));
-        int num2 = Integer.parseInt(request.getParameter("numero2"));
-        double resultado;
+        String numero1Str = request.getParameter("numero1");
+        String numero2Str = request.getParameter("numero2");
         String operacion = request.getParameter("operacion");
+        String errorMsg = "";
 
-        switch(operacion.toLowerCase()) {
-            case "sumar":
-                resultado = num1 + num2;
-                message = num1 + " " + "+" + " " + num2 + " = " + (int) resultado;
-                break;
-            case "restar":
-                resultado = num1 - num2;
-                message = num1 + " " + "-" + " " + num2 + " = " + (int) resultado;
-                break;
-            case "multiplicar":
-                resultado = num1 * num2;
-                message = num1 + " " + "*" + " " + num2 + " = " + (int) resultado;
-                break;
-            case "dividir":
-                resultado = (double) num1 / num2;
-                message = num1 + " " + "/" + " " + num2 + " = " + resultado;
-                break;
-            case "ordenar":
-                message = orderNumbers(num1,num2);
-                break;
-            case "par":
-                message = areEven(num1,num2);
-            default: resultado = 0;
-                break;
+        int num1;
+        int num2;
+        double resultado;
+        try {
+            num1 = Integer.parseInt(numero1Str);
+            num2 = Integer.parseInt(numero2Str);
+        } catch (NumberFormatException e) {
+            // Redireccionar a página de error si los números no son válidos
+            errorMsg = URLEncoder.encode("Los números ingresados no son válidos", "UTF-8");
+            response.sendRedirect("error.jsp?error="+errorMsg);
+            return;
+        }
+        try{
+            switch(operacion.toLowerCase()) {
+                case "sumar":
+                    resultado = num1 + num2;
+                    message = num1 + " " + "+" + " " + num2 + " = " + (int) resultado;
+                    break;
+                case "restar":
+                    resultado = num1 - num2;
+                    message = num1 + " " + "-" + " " + num2 + " = " + (int) resultado;
+                    break;
+                case "multiplicar":
+                    resultado = num1 * num2;
+                    message = num1 + " " + "*" + " " + num2 + " = " + (int) resultado;
+                    break;
+                case "dividir":
+                    if (num2 == 0) {
+                        errorMsg = URLEncoder.encode("No se puede dividir por cero", "UTF-8");
+                        response.sendRedirect("error.jsp?error="+errorMsg);
+                        return;
+                    }
+                    resultado = (double) num1 / num2;
+                    message = num1 + " " + "/" + " " + num2 + " = " + resultado;
+                    break;
+                case "ordenar":
+                    message = orderNumbers(num1,num2);
+                    break;
+                case "par":
+                    message = areEven(num1,num2);
+                default:
+                    errorMsg = URLEncoder.encode("Operación no válida", "UTF-8");
+                    response.sendRedirect("error.jsp?error="+errorMsg);
+                    break;
+            }
+        } catch (Exception e) {
+            // Capturar cualquier otra excepción y redireccionar a página de error general
+            errorMsg = URLEncoder.encode("Error en el procesamiento de la operación", "UTF-8");
+            response.sendRedirect("error.jsp?error="+errorMsg);
+            return;
         }
         // Codificar el mensaje antes de añadirlo a la cookie
         String encodedMessage = URLEncoder.encode(message, "UTF-8");
