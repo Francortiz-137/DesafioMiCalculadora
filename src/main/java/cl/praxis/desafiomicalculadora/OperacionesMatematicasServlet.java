@@ -23,6 +23,9 @@ public class OperacionesMatematicasServlet extends HttpServlet {
         String operacion = request.getParameter("operacion");
         String errorMsg = "";
 
+        System.out.println(numero1Str);
+        System.out.println(numero2Str);
+
         int num1;
         int num2;
         double resultado;
@@ -66,7 +69,7 @@ public class OperacionesMatematicasServlet extends HttpServlet {
                 default:
                     errorMsg = URLEncoder.encode("Operación no válida", "UTF-8");
                     response.sendRedirect("error.jsp?error="+errorMsg);
-                    break;
+                    return;
             }
         } catch (Exception e) {
             // Capturar cualquier otra excepción y redireccionar a página de error general
@@ -79,6 +82,7 @@ public class OperacionesMatematicasServlet extends HttpServlet {
         Cookie cookie = new Cookie("message", encodedMessage);
         response.addCookie(cookie);
         response.sendRedirect("exito.jsp");
+
     }
 
     private String areEven(int num1, int num2) {
