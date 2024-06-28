@@ -2,12 +2,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>Calculadora</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
-<body>
-<h1><%= "Hello World!" %>
-</h1>
-<br/>
-<a href="hello-servlet">Hello Servlet</a>
+<body class="bg-custom text-light">
+<main>
+    <h1 class="text-center">Calculadora</h1>
+    <br/>
+    <form class="container" method="POST" action="hello-servlet">
+        <div class="mb-3">
+            <label for="numero1" class="form-label">Numero1</label>
+            <input type="number" class="form-control bg-custom text-light" id="numero1" placeholder="Numero 1">
+        </div>
+        <div class="mb-3">
+            <label for="numero2" class="form-label">Numero2</label>
+            <input type="number" class="form-control bg-custom text-light" id="numero2" placeholder="Numero 2">
+        </div>
+        <div class="mb-3 form-check p-0">
+            <select class="form-select bg-custom text-light" aria-label="Default select example">
+                <option value="1">Suma</option>
+                <option value="2">Resta</option>
+                <option value="3">Multiplicacion</option>
+                <option value="3">Division</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-color w-100">Calcular</button>
+    </form>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,0 +1,18 @@
+
+.form-control:focus {
+    background-color: #495057;
+    color: white;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(128, 189, 255, 0.25);
+}
+::placeholder {
+    color: white !important;
+    opacity: 1;
+}
+.bg-custom{
+    background-color: #11191F;
+}
+.btn-color{
+    background-color: #1095C1;
+}
