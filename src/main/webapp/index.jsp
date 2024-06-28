@@ -10,7 +10,7 @@
 <main>
     <h1 class="text-center">Calculadora</h1>
     <br/>
-    <form class="container needs-validation" method="POST" action="calcular" novalidate>
+    <form class="container needs-validation" method="POST" action="calcular">
         <div class="mb-3">
             <label for="numero1" class="form-label">Número 1</label>
             <input type="number" class="form-control bg-custom text-light" id="numero1" name="numero1" placeholder="Número 1" required>
