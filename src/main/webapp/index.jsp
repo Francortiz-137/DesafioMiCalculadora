@@ -25,6 +25,8 @@
                 <option value="restar">Resta</option>
                 <option value="multiplicar">Multiplicacion</option>
                 <option value="dividir">Division</option>
+                <option value="ordenar">Ordenar</option>
+                <option value="par">Son par?</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary btn-color w-100">Calcular</button>

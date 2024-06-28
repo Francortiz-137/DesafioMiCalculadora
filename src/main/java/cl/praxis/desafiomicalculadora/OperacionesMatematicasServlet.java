@@ -1,6 +1,7 @@
 package cl.praxis.desafiomicalculadora;
 
 import java.io.*;
+import java.net.URLEncoder;
 
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -12,7 +13,6 @@ public class OperacionesMatematicasServlet extends HttpServlet {
 
     public void init() {
         message = "";
-        symbol = "";
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -20,36 +20,64 @@ public class OperacionesMatematicasServlet extends HttpServlet {
 
         int num1 = Integer.parseInt(request.getParameter("numero1"));
         int num2 = Integer.parseInt(request.getParameter("numero2"));
-        int resultado;
+        double resultado;
         String operacion = request.getParameter("operacion");
 
         switch(operacion.toLowerCase()) {
             case "sumar":
                 resultado = num1 + num2;
-                symbol = "+";
+                message = num1 + " " + "+" + " " + num2 + " = " + (int) resultado;
                 break;
             case "restar":
                 resultado = num1 - num2;
-                symbol= "-";
+                message = num1 + " " + "-" + " " + num2 + " = " + (int) resultado;
                 break;
             case "multiplicar":
                 resultado = num1 * num2;
-                symbol = "*";
+                message = num1 + " " + "*" + " " + num2 + " = " + (int) resultado;
                 break;
             case "dividir":
-                resultado = num1 / num2;
-                symbol = "/";
+                resultado = (double) num1 / num2;
+                message = num1 + " " + "/" + " " + num2 + " = " + resultado;
                 break;
+            case "ordenar":
+                message = orderNumbers(num1,num2);
+                break;
+            case "par":
+                message = areEven(num1,num2);
             default: resultado = 0;
                 break;
         }
+        // Codificar el mensaje antes de añadirlo a la cookie
+        String encodedMessage = URLEncoder.encode(message, "UTF-8");
+        Cookie cookie = new Cookie("message", encodedMessage);
+        response.addCookie(cookie);
+        response.sendRedirect("exito.jsp");
+    }
 
-        message += num1 + " " + symbol + " " + num2 + " = " + resultado;
+    private String areEven(int num1, int num2) {
+        String resultado = "";
+        if(num1%2 == 0){
+            resultado += num1 + " es Par. ";
+        }else{
+            resultado += num1 + " es Impar. ";
+        }
+        if(num2%2 == 0){
+            resultado += num2 + " es Par.";
+        } else{
+            resultado += num2 + " es Impar.";
+        }
+        return resultado;
+    }
 
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.printf("<h1>" + message + "</h1>");
-        out.println("</body></html>");
+    private String orderNumbers(int num1, int num2) {
+        if (num1 > num2) {
+            return num1 + " > "+ num2;
+        } else if (num2 > num1) {
+            return num2 + " > "+ num1;
+        }   else {
+            return num1 + " == "+ num2;
+        }
     }
 
     public void destroy() {

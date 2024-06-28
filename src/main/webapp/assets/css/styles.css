@@ -16,3 +16,12 @@
 .btn-color{
     background-color: #1095C1;
 }
+a {
+    color: inherit; /* Heredar el color del texto */
+    text-decoration: none; /* Eliminar el subrayado */
+}
+
+a:hover {
+    color: #ccc; /* Color al pasar el ratón por encima */
+    text-decoration: underline; /* Subrayado al pasar el ratón por encima */
+}
