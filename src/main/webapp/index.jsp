@@ -10,21 +10,21 @@
 <main>
     <h1 class="text-center">Calculadora</h1>
     <br/>
-    <form class="container" method="POST" action="hello-servlet">
+    <form class="container" method="POST" action="calcular">
         <div class="mb-3">
             <label for="numero1" class="form-label">Numero1</label>
-            <input type="number" class="form-control bg-custom text-light" id="numero1" placeholder="Numero 1">
+            <input type="number" class="form-control bg-custom text-light" id="numero1" name="numero1" placeholder="Numero 1">
         </div>
         <div class="mb-3">
             <label for="numero2" class="form-label">Numero2</label>
-            <input type="number" class="form-control bg-custom text-light" id="numero2" placeholder="Numero 2">
+            <input type="number" class="form-control bg-custom text-light" id="numero2" name="numero2" placeholder="Numero 2">
         </div>
         <div class="mb-3 form-check p-0">
-            <select class="form-select bg-custom text-light" aria-label="Default select example">
-                <option value="1">Suma</option>
-                <option value="2">Resta</option>
-                <option value="3">Multiplicacion</option>
-                <option value="3">Division</option>
+            <select class="form-select bg-custom text-light"  name="operacion" aria-label="Default select example">
+                <option value="sumar">Suma</option>
+                <option value="restar">Resta</option>
+                <option value="multiplicar">Multiplicacion</option>
+                <option value="dividir">Division</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary btn-color w-100">Calcular</button>
