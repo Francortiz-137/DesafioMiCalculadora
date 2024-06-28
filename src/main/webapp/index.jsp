@@ -10,24 +10,29 @@
 <main>
     <h1 class="text-center">Calculadora</h1>
     <br/>
-    <form class="container" method="POST" action="calcular">
+    <form class="container needs-validation" method="POST" action="calcular">
         <div class="mb-3">
-            <label for="numero1" class="form-label">Numero1</label>
-            <input type="number" class="form-control bg-custom text-light" id="numero1" name="numero1" placeholder="Numero 1">
+            <label for="numero1" class="form-label">Número 1</label>
+            <input type="number" class="form-control bg-custom text-light" id="numero1" name="numero1" placeholder="Número 1" required>
+
         </div>
         <div class="mb-3">
-            <label for="numero2" class="form-label">Numero2</label>
-            <input type="number" class="form-control bg-custom text-light" id="numero2" name="numero2" placeholder="Numero 2">
+            <label for="numero2" class="form-label">Número 2</label>
+            <input type="number" class="form-control bg-custom text-light" id="numero2" name="numero2" placeholder="Número 2" required>
+
         </div>
-        <div class="mb-3 form-check p-0">
-            <select class="form-select bg-custom text-light"  name="operacion" aria-label="Default select example">
+        <div class="mb-3">
+            <label for="operacion" class="form-label">Operación</label>
+            <select class="form-select bg-custom text-light" id="operacion" name="operacion" required>
+                <option value="" disabled selected>Selecciona una operación</option>
                 <option value="sumar">Suma</option>
                 <option value="restar">Resta</option>
-                <option value="multiplicar">Multiplicacion</option>
-                <option value="dividir">Division</option>
+                <option value="multiplicar">Multiplicación</option>
+                <option value="dividir">División</option>
                 <option value="ordenar">Ordenar</option>
-                <option value="par">Son par?</option>
+                <option value="par">¿Son pares?</option>
             </select>
+
         </div>
         <button type="submit" class="btn btn-primary btn-color w-100">Calcular</button>
     </form>
