@@ -2,14 +2,14 @@ package cl.praxis.desafiomicalculadora;
 
 import java.io.*;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 @WebServlet(name = "calcularServlet", value = "/calcular")
-public class OperacionesMatematicasServlet extends HttpServlet {
+public class CalculatorServlet extends HttpServlet {
     private String message;
-    private String symbol;
 
     public void init() {
         message = "";
@@ -18,67 +18,68 @@ public class OperacionesMatematicasServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
-        String numero1Str = request.getParameter("numero1");
-        String numero2Str = request.getParameter("numero2");
-        String operacion = request.getParameter("operacion");
-        String errorMsg = "";
+        String number1Str = request.getParameter("numero1");
+        String number2Str = request.getParameter("numero2");
+        String operation = request.getParameter("operacion");
+        String errorMsg;
 
-        System.out.println(numero1Str);
-        System.out.println(numero2Str);
+        System.out.println(number1Str);
+        System.out.println(number2Str);
+        System.out.println(operation);
 
         int num1;
         int num2;
-        double resultado;
+        double result;
         try {
-            num1 = Integer.parseInt(numero1Str);
-            num2 = Integer.parseInt(numero2Str);
+            num1 = Integer.parseInt(number1Str);
+            num2 = Integer.parseInt(number2Str);
         } catch (NumberFormatException e) {
-            // Redireccionar a página de error si los números no son válidos
-            errorMsg = URLEncoder.encode("Los números ingresados no son válidos", "UTF-8");
+            errorMsg = URLEncoder.encode("Los números ingresados no son válidos", StandardCharsets.UTF_8);
             response.sendRedirect("error.jsp?error="+errorMsg);
             return;
         }
         try{
-            switch(operacion.toLowerCase()) {
+            switch(operation.toLowerCase()) {
                 case "sumar":
-                    resultado = num1 + num2;
-                    message = num1 + " " + "+" + " " + num2 + " = " + (int) resultado;
+                    result = num1 + num2;
+                    message = num1 + " " + "+" + " " + num2 + " = " + (int) result;
                     break;
                 case "restar":
-                    resultado = num1 - num2;
-                    message = num1 + " " + "-" + " " + num2 + " = " + (int) resultado;
+                    result = num1 - num2;
+                    message = num1 + " " + "-" + " " + num2 + " = " + (int) result;
                     break;
                 case "multiplicar":
-                    resultado = num1 * num2;
-                    message = num1 + " " + "*" + " " + num2 + " = " + (int) resultado;
+                    result = num1 * num2;
+                    message = num1 + " " + "*" + " " + num2 + " = " + (int) result;
                     break;
                 case "dividir":
                     if (num2 == 0) {
-                        errorMsg = URLEncoder.encode("No se puede dividir por cero", "UTF-8");
+                        errorMsg = URLEncoder.encode("No se puede dividir por cero", StandardCharsets.UTF_8);
                         response.sendRedirect("error.jsp?error="+errorMsg);
                         return;
                     }
-                    resultado = (double) num1 / num2;
-                    message = num1 + " " + "/" + " " + num2 + " = " + resultado;
+                    result = (double) num1 / num2;
+                    message = num1 + " " + "/" + " " + num2 + " = " + result;
                     break;
                 case "ordenar":
                     message = orderNumbers(num1,num2);
                     break;
                 case "par":
                     message = areEven(num1,num2);
+                    break;
                 default:
-                    errorMsg = URLEncoder.encode("Operación no válida", "UTF-8");
+                    errorMsg = URLEncoder.encode("Operación no válida", StandardCharsets.UTF_8);
                     response.sendRedirect("error.jsp?error="+errorMsg);
                     return;
             }
         } catch (Exception e) {
             // Capturar cualquier otra excepción y redireccionar a página de error general
-            errorMsg = URLEncoder.encode("Error en el procesamiento de la operación", "UTF-8");
+            errorMsg = URLEncoder.encode("Error en el procesamiento de la operación", StandardCharsets.UTF_8);
             response.sendRedirect("error.jsp?error="+errorMsg);
             return;
         }
         // Codificar el mensaje antes de añadirlo a la cookie
-        String encodedMessage = URLEncoder.encode(message, "UTF-8");
+        String encodedMessage = URLEncoder.encode(message, StandardCharsets.UTF_8);
         Cookie cookie = new Cookie("message", encodedMessage);
         response.addCookie(cookie);
         response.sendRedirect("exito.jsp");
